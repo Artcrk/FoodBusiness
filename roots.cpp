@@ -2,28 +2,26 @@
 
 /**
  * @file roots.cpp
- * @brief ²ÍÒû¹ÜÀíÏµÍ³ÖĞÑëÄ£¿é - ÕûÌå¿ØÖÆ
+ * @brief é¤é¥®ç®¡ç†ç³»ç»Ÿä¸­å¤®æ¨¡å— - æ•´ä½“æ§åˆ¶
  * @author Artcrk
  * @date 2025-09-24
- *
- * @todo ÍêÉÆCÄ£Ê½µÄ¹¦ÄÜ,Ö¸ÒıÔÚShowMenuÄÚ.
  * 
- * @todo Íê³É¶ÔËÑË÷¹¦ÄÜµÄÓÅ»¯,ÒıÈë¹şÏ£´æ´¢ºÍ±êÇ©»¯Ë¼Ïë.(wish in v0.5)
+ * @todo å®Œæˆå¯¹æœç´¢åŠŸèƒ½çš„ä¼˜åŒ–,å¼•å…¥å“ˆå¸Œå­˜å‚¨å’Œæ ‡ç­¾åŒ–æ€æƒ³.(wish in v1.5)
  *
- * @todo Ê¹ÓÃQt°ü×°Õâ¸ö¿ØÖÆÌ¨³ÌĞò,ÒÔÍê³ÉÒ»Õû¸öÕæÕıµÄÏÖ´ú»¯³ÌĞò.(wish in v2.0)
+ * @todo ä½¿ç”¨QtåŒ…è£…è¿™ä¸ªæ§åˆ¶å°ç¨‹åº,ä»¥å®Œæˆä¸€æ•´ä¸ªçœŸæ­£çš„ç°ä»£åŒ–ç¨‹åº.(wish in v2.0)
  */
 
 double Rst::Version = 1.0;
-std::pair<int, int> hourRange[6] = { {0,4},{4,9},{9,12},{12,15},{15,19},{19,23} };//²»ÄÜÊ¹ÓÃÔ²À¨ºÅ,»á±»½âÎöÎª¶ººÅ±í´ïÊ½!
-std::string RangeHello[6] = {"ÉîÒ¹","Ôç³¿","ÉÏÎç","ÖĞÎç","ÏÂÎç","Ò¹Íí"};//Ê±¼ä.
+std::pair<int, int> hourRange[6] = { {0,4},{4,9},{9,12},{12,15},{15,19},{19,23} };//ä¸èƒ½ä½¿ç”¨åœ†æ‹¬å·,ä¼šè¢«è§£æä¸ºé€—å·è¡¨è¾¾å¼!
+std::string RangeHello[6] = {"æ·±å¤œ","æ—©æ™¨","ä¸Šåˆ","ä¸­åˆ","ä¸‹åˆ","å¤œæ™š"};//æ—¶é—´.
 
-//¶ÁÈ¡database.dllÖĞµÄÊı¾İ,Ö÷Òª³õÊ¼»¯datasºÍcalcRecord
-//Ç°Ãæ»á´æ´¢Ò»¸öint±äÁ¿(4×Ö½Ú),ÓÃÓÚ´æ´¢datasÈİÆ÷µÄ´óĞ¡.
-//ÔÚ¶ÁÈ¡Íê³ÉdatasÖ®ºó,»áÓĞÒ»¸öint´æ´¢daily,Ö®ºó¾ÍÊÇdaily.dailyÖ®ºóÓĞÒ»¸öint´æ´¢timeRange,ÒÔ´ËÀàÍÆ.
+//è¯»å–database.dllä¸­çš„æ•°æ®,ä¸»è¦åˆå§‹åŒ–dataså’ŒcalcRecord
+//å‰é¢ä¼šå­˜å‚¨ä¸€ä¸ªintå˜é‡(4å­—èŠ‚),ç”¨äºå­˜å‚¨dataså®¹å™¨çš„å¤§å°.
+//åœ¨è¯»å–å®Œæˆdatasä¹‹å,ä¼šæœ‰ä¸€ä¸ªintå­˜å‚¨daily,ä¹‹åå°±æ˜¯daily.dailyä¹‹åæœ‰ä¸€ä¸ªintå­˜å‚¨timeRange,ä»¥æ­¤ç±»æ¨.
 bool datainit() {
 	std::ifstream FileIn("database.dll");
 	if (!FileIn.is_open()) {
-		std::cout << ">:databaseÎÄ¼ş´ò¿ªÊ§°Ü!ÈôµÚÒ»´ÎÊ¹ÓÃ¸ÃÈí¼şÇëºöÂÔ." << std::endl;
+		std::cout << ">:databaseæ–‡ä»¶æ‰“å¼€å¤±è´¥!è‹¥ç¬¬ä¸€æ¬¡ä½¿ç”¨è¯¥è½¯ä»¶è¯·å¿½ç•¥." << std::endl;
 		FileIn.close();
 		return false;
 	}
@@ -31,7 +29,7 @@ bool datainit() {
 	auto length = FileIn.tellg();
 	FileIn.seekg(0, std::ios::beg);
 	if (length == 0) {
-		std::cout << ">:ÎÄ¼şÎª¿Õ" << std::endl;
+		std::cout << ">:æ–‡ä»¶ä¸ºç©º" << std::endl;
 		FileIn.close();
 		return false;
 	}
@@ -43,7 +41,7 @@ bool datainit() {
 	FileIn >> datas_row;
 	if (datas_col != 0 || datas_row != 0) {
 		if (datas_col > 9 || datas_row > 9) {
-			std::cout << ">:µ±Ç°Êı¾İ´æ´¢Òì³£,¶ÁÈ¡ÖÕÖ¹." << std::endl;
+			std::cout << ">:å½“å‰æ•°æ®å­˜å‚¨å¼‚å¸¸,è¯»å–ç»ˆæ­¢." << std::endl;
 			FileIn.close();
 			return false;
 		}
@@ -54,30 +52,30 @@ bool datainit() {
 				if (i == datas_col && j == datas_row) {
 					break;
 				}
-				//¸ñÊ½:" string double";
+				//æ ¼å¼:" string double";
 
 				std::string s = "";
 				double d = 0.0;
 
 				FileIn >> s;
-				//Inportant information:ÓÉÓÚÎ´ÖªÔ­Òò,ÔÚ¶ÁÈ¡ºóµÄ¸³Öµ²Ù×÷»áµ¼ÖÂÂÒÂë,
-				// ÕâÈÃ³ÌĞò²»ÄÜÕı³£¶ÁÈ¡stringÄÚÈİ,µ«ÊÇ¼ÓÉÏstd::move¿ÉÒÔ½â¾ö¸ÃÎÊÌâ<<------µ«ÊÇ,ÎªÊ²Ã´?
-				Rst::datas[i][j].name = std::move(s);//¶ÁÈ¡string
+				//Inportant information:ç”±äºæœªçŸ¥åŸå› ,åœ¨è¯»å–åçš„èµ‹å€¼æ“ä½œä¼šå¯¼è‡´ä¹±ç ,
+				// è¿™è®©ç¨‹åºä¸èƒ½æ­£å¸¸è¯»å–stringå†…å®¹,ä½†æ˜¯åŠ ä¸Šstd::moveå¯ä»¥è§£å†³è¯¥é—®é¢˜<<------ä½†æ˜¯,ä¸ºä»€ä¹ˆ?
+				Rst::datas[i][j].name = std::move(s);//è¯»å–string
 				//Rst::datas[i][j].name = s;
 				FileIn >> d;
-				Rst::datas[i][j].cost = d;//¶ÁÈ¡double.
+				Rst::datas[i][j].cost = d;//è¯»å–double.
 
 				Rst::datas[i][j].occupied = true;
 			}
 		}
-		std::cout << ">>+:³É¹¦¶ÁÈ¡" << 10 * datas_col + datas_row << "¸ö²ÍÆ·Êı¾İ." << std::endl;
+		std::cout << ">>+:æˆåŠŸè¯»å–" << 10 * datas_col + datas_row << "ä¸ªé¤å“æ•°æ®." << std::endl;
 	}
 	else {
-		std::cout << ">:Î´¼ì²âµ½²ÍÆ·´æ´¢Êı¾İ." << std::endl;
+		std::cout << ">:æœªæ£€æµ‹åˆ°é¤å“å­˜å‚¨æ•°æ®." << std::endl;
 	}
 	//------
 	 
-	//ÓÃÓÚ»ñÈ¡Ò»Õû¸ötimedataÊı¾İ.±ØĞë±£Ö¤¸ñÊ½ÕıÈ·.
+	//ç”¨äºè·å–ä¸€æ•´ä¸ªtimedataæ•°æ®.å¿…é¡»ä¿è¯æ ¼å¼æ­£ç¡®.
 	//-->>>> days total_cost total_income pure_income avg_income avg_pure_income total_number otherdata
 	auto Gettimedata = [&](Rst::timedata & td) {
 		std::string tmps;
@@ -103,7 +101,7 @@ bool datainit() {
 	//daily->
 	//xx { date {TD} }
 	if (daily_size != 0) {
-		da.reserve(daily_size);//²»ÊÇrealloc,²»ĞèÒª³ËÒÔsizeof.
+		da.reserve(daily_size);//ä¸æ˜¯realloc,ä¸éœ€è¦ä¹˜ä»¥sizeof.
 		for (int i = 0; i < daily_size; i++) {
 			Rst::timedata td;
 			date.clear();
@@ -111,10 +109,10 @@ bool datainit() {
 			Gettimedata(td);
 			Rst::CRecord.SaveDaily(Rst::daily(td, date));
 		}
-		std::cout << ">>+:³É¹¦¶ÁÈ¡" << daily_size << "¸öµ¥ÈÕÆÚÊı¾İ!" << std::endl;
+		std::cout << ">>+:æˆåŠŸè¯»å–" << daily_size << "ä¸ªå•æ—¥æœŸæ•°æ®!" << std::endl;
 	}
 	else {
-		std::cout << ">:Î´¼ì²âµ½ÈÕÊı¾İ." << std::endl;
+		std::cout << ">:æœªæ£€æµ‹åˆ°æ—¥æ•°æ®." << std::endl;
 	}
 	FileIn >> timeRange_size;
 
@@ -134,14 +132,14 @@ bool datainit() {
 			std::string tmp;
 			for (int j = 0; j < rangeNum; j++) {
 				FileIn >> tmp;
-				name.emplace_back(std::move(tmp));//tmpµÄÖ¸ÕëÖ¸ÏòµØÖ·¸Ä±ä,ÒÑ¾­Ïàµ±ÓÚÒ»¸öĞÂµÄ¿Õ±äÁ¿.
+				name.emplace_back(std::move(tmp));//tmpçš„æŒ‡é’ˆæŒ‡å‘åœ°å€æ”¹å˜,å·²ç»ç›¸å½“äºä¸€ä¸ªæ–°çš„ç©ºå˜é‡.
 			}
 			Rst::CRecord.SaveRange(Rst::timeRange(td, date, name));
 		}
-		std::cout << ">>+:³É¹¦¶ÁÈ¡" << timeRange_size << "¸öÊ±¼ä¼¯ºÏÍ³¼ÆÊı¾İ!" << std::endl;
+		std::cout << ">>+:æˆåŠŸè¯»å–" << timeRange_size << "ä¸ªæ—¶é—´é›†åˆç»Ÿè®¡æ•°æ®!" << std::endl;
 	}
 	else {
-		std::cout << ">:Î´¼ì²âµ½Ê±¼ä¼¯ºÏÍ³¼ÆÊı¾İ." << std::endl;
+		std::cout << ">:æœªæ£€æµ‹åˆ°æ—¶é—´é›†åˆç»Ÿè®¡æ•°æ®." << std::endl;
 	}
 	FileIn.close();
 	return true;
@@ -150,39 +148,39 @@ bool datainit() {
 void init() {
 	Rst::consoleColor = Rst::getcolor();
 	Rst::setcolor(B | I);
-	//std::fill(std::begin(Rst::datas), std::end(Rst::datas), 0);//½öÓÃÓÚÒ»Î¬Êı×é
-	memset(Rst::datas, 0, sizeof(Rst::datas));//Óï·¨:Ä¿±ê + ÏëÒª³õÊ¼»¯³ÉÎªµÄÊıÖµ + Ä¿±ê´óĞ¡ . ²»Òª¼Ç´í!
+	//std::fill(std::begin(Rst::datas), std::end(Rst::datas), 0);//ä»…ç”¨äºä¸€ç»´æ•°ç»„
+	memset(Rst::datas, 0, sizeof(Rst::datas));//è¯­æ³•:ç›®æ ‡ + æƒ³è¦åˆå§‹åŒ–æˆä¸ºçš„æ•°å€¼ + ç›®æ ‡å¤§å° . ä¸è¦è®°é”™!
 	Rst::CRecord.datainit();
 	Rst::dapx = 0, Rst::dapy = 0;
 	std::string TimeNow = Rst::timeCatch();
-	std::cout << "¶ÁÈ¡ÏµÍ³Ê±¼ä³É¹¦!"+TimeNow << std::endl;
+	std::cout << "è¯»å–ç³»ç»Ÿæ—¶é—´æˆåŠŸ!"+TimeNow << std::endl;
 	std::regex_match(TimeNow, Rst::match, Rst::pattern_Time);
-	int H = std::stoi(Rst::match[4]);//×¢Òâstoi²»ÊÇstringÄÚ²¿·½·¨
+	int H = std::stoi(Rst::match[4]);//æ³¨æ„stoiä¸æ˜¯stringå†…éƒ¨æ–¹æ³•
 	for (int i = 0; i < 6; i++) {
 		if (H >= hourRange[i].first && H < hourRange[i].second) {
-			std::cout << "³É¹¦¼ì²âÊ±¼ä:" << TimeNow << std::endl;
+			std::cout << "æˆåŠŸæ£€æµ‹æ—¶é—´:" << TimeNow << std::endl;
 			Rst::setcolor(G | B | I);
-			std::cout << RangeHello[i] << "ºÃ,Aethryrn!" << std::endl;
+			std::cout << RangeHello[i] << "å¥½,Aethryrn!" << std::endl;
 			break;
 		}
 	}
 	Rst::setcolor(B | I);
-	printf("\n\n{--->¼´½«½øĞĞÊı¾İ¶ÁÈ¡³õÊ¼»¯...\n");
+	printf("\n\n{--->å³å°†è¿›è¡Œæ•°æ®è¯»å–åˆå§‹åŒ–...\n");
 	if (datainit()) {
-		std::cout << ">+<¶ÁÈ¡Êı¾İ³É¹¦!" << std::endl;
+		std::cout << ">+<è¯»å–æ•°æ®æˆåŠŸ!" << std::endl;
 	}
 	else {
-		std::cout << ">-<Êı¾İ³õÊ¼»¯Ê§°Ü,Çë¼ì²éÎÄ¼şdatabase.dll" << std::endl;
+		std::cout << ">-<æ•°æ®åˆå§‹åŒ–å¤±è´¥,è¯·æ£€æŸ¥æ–‡ä»¶database.dll" << std::endl;
 	}
 	Rst::setcolor(Rst::consoleColor);
 	return;
 }
 
-bool save() {//´ıÍê³É.
+bool save() {//å¾…å®Œæˆ.
 
 	std::ofstream FileOut("database.dll");
 	if (!FileOut.is_open()) {
-		std::cout << "´ò¿ªÎÄ¼şÊ§°Ü!" << std::endl;
+		std::cout << "æ‰“å¼€æ–‡ä»¶å¤±è´¥!" << std::endl;
 		FileOut.close();
 		return false;
 	}
@@ -193,23 +191,23 @@ bool save() {//´ıÍê³É.
 
 
 	for (int i = 0; i <= col_datas; i++) {
-		for (int j = 0;j <10; j++) {//´Ë´¦µÄ10±íÊ¾²ÍÆ·ĞĞµÄ×î´óÖµ.
+		for (int j = 0;j <10; j++) {//æ­¤å¤„çš„10è¡¨ç¤ºé¤å“è¡Œçš„æœ€å¤§å€¼.
 			//if (i < col_datas && j >= 10) {
-			//	break;//Ç°ÃæµÄÁĞĞèÒªÕı³£Êä³ö.ÕâÀïµÄÅĞ¶ÏÌõ¼şÓëÉÏÃæµÄÖØµş,¹ÊÉ¾È¥.
+			//	break;//å‰é¢çš„åˆ—éœ€è¦æ­£å¸¸è¾“å‡º.è¿™é‡Œçš„åˆ¤æ–­æ¡ä»¶ä¸ä¸Šé¢çš„é‡å ,æ•…åˆ å».
 			//}
 			if (i == col_datas && j == row_datas) {
-				break;//×îºóÒ»ĞĞµÄÖÕÖ¹ÍË³ö,²»°üÀ¨Ö¸ÏòµÄµØµã,ÒòÎªdapx,dapyÖ¸ÏòµÄÓÀÔ¶ÊÇÓĞĞ§µØÖ·ºóµÄµÚÒ»¸ö¿ÕµØÖ·.
+				break;//æœ€åä¸€è¡Œçš„ç»ˆæ­¢é€€å‡º,ä¸åŒ…æ‹¬æŒ‡å‘çš„åœ°ç‚¹,å› ä¸ºdapx,dapyæŒ‡å‘çš„æ°¸è¿œæ˜¯æœ‰æ•ˆåœ°å€åçš„ç¬¬ä¸€ä¸ªç©ºåœ°å€.
 			}
-			FileOut << "\n" << Rst::datas[i][j].name << " " << Rst::datas[i][j].cost;//¸ñÊ½:" string double";
+			FileOut << "\n" << Rst::datas[i][j].name << " " << Rst::datas[i][j].cost;//æ ¼å¼:" string double";
 		}
 	}
-	//Êä³ö¸ñÊ½:±£Ö¤×îºóÒ»Î»·Ç¿Õ¸ñ.
-	FileOut << "\n";//±ÜÃâÈ«²¿±ä³ÉÒ»ĞĞ,¹Ê»»ĞĞ.
+	//è¾“å‡ºæ ¼å¼:ä¿è¯æœ€åä¸€ä½éç©ºæ ¼.
+	FileOut << "\n";//é¿å…å…¨éƒ¨å˜æˆä¸€è¡Œ,æ•…æ¢è¡Œ.
 
 
-	//ÓÃÓÚÊä³öÒ»Õû¸ötimedataÊı¾İ.±ØĞë±£Ö¤¸ñÊ½ÕıÈ·.
+	//ç”¨äºè¾“å‡ºä¸€æ•´ä¸ªtimedataæ•°æ®.å¿…é¡»ä¿è¯æ ¼å¼æ­£ç¡®.
 	//-->>>> days total_cost total_income pure_income avg_income avg_pure_income total_number otherdata
-	auto Puttimedata = [&](const Rst::timedata& td) {//½ö¶Á
+	auto Puttimedata = [&](const Rst::timedata& td) {//ä»…è¯»
 		FileOut << " " << td.days << " ";
 		FileOut << td.total_cost << " ";
 		FileOut << td.total_income << " ";
@@ -217,7 +215,7 @@ bool save() {//´ıÍê³É.
 		FileOut << td.avg_income << " ";
 		FileOut << td.avg_pure_income << " ";
 		FileOut << td.total_number << " ";
-		if ((int)td.otherdata.size() == 0)//±ÜÃâ¶à¿ÕÒ»¸ö¿Õ¸ñµ¼ÖÂ¶ÁÈ¡Ê§°Ü.
+		if ((int)td.otherdata.size() == 0)//é¿å…å¤šç©ºä¸€ä¸ªç©ºæ ¼å¯¼è‡´è¯»å–å¤±è´¥.
 			FileOut << "NULL";
 		else 
 		FileOut << td.otherdata;
@@ -228,14 +226,14 @@ bool save() {//´ıÍê³É.
 	int da_len = (int)da.size();
 	int tr_len = (int)tr.size();
 	
-	//Êä³ö´óĞ¡
-	FileOut << da_len;//Í³Ò»¹æ·¶,Ä©Î²ÎŞ¿Õ¸ñ»ò»»ĞĞ
+	//è¾“å‡ºå¤§å°
+	FileOut << da_len;//ç»Ÿä¸€è§„èŒƒ,æœ«å°¾æ— ç©ºæ ¼æˆ–æ¢è¡Œ
 	for (int i = 0; i < da_len; i++) {
 		FileOut << "\n" << da[i].operationDate;
 		Puttimedata(da[i].dailySave);
 	}
 
-	//Êä³ö¸ñÊ½:´Ë´¦Õ¼ÓÃÒ»¸ö»»ĞĞÎ».
+	//è¾“å‡ºæ ¼å¼:æ­¤å¤„å ç”¨ä¸€ä¸ªæ¢è¡Œä½.
 	FileOut << "\n";
 
 	FileOut << tr_len;
@@ -252,33 +250,33 @@ bool save() {//´ıÍê³É.
 		}
 	}
 
-	//Êä³ö¸ñÊ½:´Ë´¦Õ¼ÓÃÒ»¸ö»»ĞĞÎ».
+	//è¾“å‡ºæ ¼å¼:æ­¤å¤„å ç”¨ä¸€ä¸ªæ¢è¡Œä½.
 	FileOut.close();
 	return true;
 }
 
 void logUpdate() {
-	std::ofstream FileOut("log.txt",std::ios::app);//Ö»×·¼Ó
+	std::ofstream FileOut("log.txt",std::ios::app);//åªè¿½åŠ 
 	if (!FileOut.is_open()) {
-		std::cout << "´æÈëÈÕÖ¾Ê§°Ü" << std::endl;
+		std::cout << "å­˜å…¥æ—¥å¿—å¤±è´¥" << std::endl;
 		return;
 	}
 	else {
-		std::cout << ">>_ÈÕÖ¾¼ÇÂ¼³É¹¦!" << std::endl;
+		std::cout << ">>_æ—¥å¿—è®°å½•æˆåŠŸ!" << std::endl;
 	}
 	std::string t = Rst::timeCatch();
 	FileOut << "Opened at " << t << ",in Version:v" <<std::format("{:.1f}", Rst::Version) << std::endl;
 }
 
 int main() {
-	//È¡
+	//å–
 	init();
 	logUpdate();
 	(void)_getch();
 
-	//Âß¼­²¿·Ö
+	//é€»è¾‘éƒ¨åˆ†
 	//
-	Rm ongoing = Rm::MAINMENU;//²¢²»×îÓÅÑ¡Ôñ,µ«Áô×÷¼ÍÄî.
+	Rm ongoing = Rm::MAINMENU;//å¹¶ä¸æœ€ä¼˜é€‰æ‹©,ä½†ç•™ä½œçºªå¿µ.
 	int debugMode = 0;
 	while (ongoing != Rm::EXIT) {
 		system("cls");
@@ -287,10 +285,10 @@ int main() {
 		switch (ret) {
 		case(Rm::EXIT):
 			if (save()) {
-				std::cout << "±£´æ³É¹¦!" << std::endl;
+				std::cout << "ä¿å­˜æˆåŠŸ!" << std::endl;
 			}
 			else {
-				std::cout << "±£´æÊ§°Ü!" << std::endl;
+				std::cout << "ä¿å­˜å¤±è´¥!" << std::endl;
 			}
 			ongoing = Rm::EXIT;
 			break;
@@ -303,9 +301,9 @@ int main() {
 		case(Rm::DEBUG): {
 			debugMode++;
 			system("cls");
-			std::cout << std::endl << "ÔÙ°´" << 4 - debugMode << "´Î½øÈëDEBUGÄ£Ê½" << std::endl;
+			std::cout << std::endl << "å†æŒ‰" << 4 - debugMode << "æ¬¡è¿›å…¥DEBUGæ¨¡å¼" << std::endl;
 			if (debugMode > 3) {
-				std::cout << "\n*½øÈëDEBUGÄ£Ê½!*" << std::endl;
+				std::cout << "\n*è¿›å…¥DEBUGæ¨¡å¼!*" << std::endl;
 				Rst::Debug();
 				debugMode = 0;
 			}
@@ -318,3 +316,4 @@ int main() {
 	}
 	return 0;
 }
+
